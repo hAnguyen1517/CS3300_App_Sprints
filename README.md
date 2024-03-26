@@ -4,4 +4,6 @@
 
 **UML class diagram for model:**
 
+**Sprints technical documentation:** https://bit.ly/sprints-technical-documentation 
+
 # Project title
