@@ -2,11 +2,10 @@
 
 **GitHub Sprint01 Project Board:** https://github.com/users/hAnguyen1517/projects/4/views/1
 
-**UML class diagram for model:** https://bit.ly/UMLClassDiagram 
+**UML class diagram for model:**
 
 # Computer Science Learning Application
 
-# Description of the program:
 Welcome to our Computer Science Learning Application! This application is designed to provide an interactive and engaging platform for users to enhance their knowledge and skills in various computer science topics. Whether you're a student, parent, or teacher, there's something here for everyone.
 
 #  Tables and Functionalities

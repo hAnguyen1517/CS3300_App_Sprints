@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\CS COURSES\CS 3300 Intro to Software Engineering\cs3300\CS3300_App_Sprints\djvenv
+set VIRTUAL_ENV=C:\CS COURSES\CS 3300 Intro to Software Engineering\cs3300\CS3300_App_Sprints-sprint01\djvenv
 
 if not defined PROMPT set PROMPT=$P$G
 
