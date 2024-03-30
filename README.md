@@ -2,7 +2,7 @@
 
 **GitHub Sprint01 Project Board:** https://github.com/users/hAnguyen1517/projects/4/views/1
 
-**UML class diagram for model:**
+**UML class diagram for model:** https://bit.ly/UMLClassDiagram 
 
 # Computer Science Learning Application
 
