@@ -1,34 +1,52 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usersys, Game, LearningResource, Progress, PerformanceReport
 from .forms import UsersysForm,GameForm
+from django.views.generic import ListView,DetailView,CreateView
+
+# def index(request):
+#     # Retrieve the list of available games
+#     games = Game.objects.all()
+#     # Pass the games to the template context
+#     context = {'games': games}
+#     # Render the index.html template with the games data
+#     return render(request, 'index.html', context)
+
+class IndexView(ListView):
+    template_name = 'index.html'  # Specify the template to use
+    queryset = Game.objects.all()  # Specify the queryset to fetch games
+    context_object_name = 'games'  # Specify the context variable name for games list
 
 
-def index(request):
-    # Retrieve the list of available games
-    games = Game.objects.all()
-    # Pass the games to the template context
-    context = {'games': games}
-    # Render the index.html template with the games data
-    return render(request, 'index.html', context)
+# def usersys_list(request):
+#     users = Usersys.objects.all()
+#     return render(request, 'usersys_list.html', {'users': users})
+
+class UsersysListView(ListView):
+    template_name = 'usersys_list.html'  # Specify the template to use
+    queryset = Usersys.objects.all()  # Specify the queryset to fetch users
+    context_object_name = 'users'  # Specify the context variable name for users list
 
 
-def usersys_list(request):
-    users = Usersys.objects.all()
-    return render(request, 'usersys_list.html', {'users': users})
+# def usersys_detail(request, pk):
+#     user = get_object_or_404(Usersys, pk=pk)
+#     return render(request, 'usersys_detail.html', {'user': user})
 
-def usersys_detail(request, pk):
-    user = get_object_or_404(Usersys, pk=pk)
-    return render(request, 'usersys_detail.html', {'user': user})
+class UsersysDetailView(DetailView):
+    model = Usersys  # Specify the model for the detail view
+    template_name = 'usersys_detail.html'  # Specify the template to use
+    context_object_name = 'user'  # Specify the context variable name for the user object
 
-def usersys_create(request):
-    if request.method == 'POST':
-        form = UsersysForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            return redirect('usersys_detail', pk=user.pk)
-    else:
-        form = UsersysForm()
-    return render(request, 'usersys_form.html', {'form': form})
+
+class UsersysCreateView(CreateView):
+    model = Usersys  # Specify the model for the create view
+    form_class = UsersysForm  # Specify the form class to use
+    template_name = 'usersys_form.html'  # Specify the template to use
+
+    def form_valid(self, form):
+        user = form.save()
+        return redirect('usersys_detail', pk=user.pk)
+    
+
 
 def usersys_update(request, pk):
     user = get_object_or_404(Usersys, pk=pk)
