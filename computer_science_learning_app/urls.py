@@ -16,12 +16,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import IndexView,UsersysListView,UsersysDetailView
+from . import views
+from .views import IndexView,UsersysListView,UsersysDetailView,UsersysCreateView,UsersysUpdateView,game_list,game_detail,game_create,game_update
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
+    # users urls
     path('users/', UsersysListView.as_view(), name='usersys_list'),  # Map the URL to the UsersysListView
     path('users/<int:pk>/', UsersysDetailView.as_view(), name='usersys_detail'),  # Map the URL to the UsersysDetailView
+    path('users/create/', UsersysCreateView.as_view(), name='usersys_create'),
+    path('users/<int:pk>/edit/', UsersysUpdateView.as_view(), name='usersys_edit'),
+    # games urls
+    path('games/', game_list, name='game_list'),
+    path('games/<int:pk>/', game_detail, name='game_detail'),
+    path('games/create/', game_create, name='game_create'),
+    path('games/<int:pk>/update/', game_update, name='game_update'),
+    # learning resources urls    
+    path('learning_resources/', views.learning_resource_list, name='learning_resource_list'),
+    path('learning_resources/<int:pk>/', views.learning_resource_detail, name='learning_resource_detail'),
+    path('learning_resources/create/', views.learning_resource_create, name='learning_resource_create'),
+    path('learning_resources/<int:pk>/update/', views.learning_resource_update, name='learning_resource_update'),
+    path('learning_resources/<int:pk>/delete/', views.learning_resource_delete, name='learning_resource_delete'),
+
 
 ]

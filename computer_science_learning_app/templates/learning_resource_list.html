@@ -1,0 +1,16 @@
+{% extends "base_template.html" %}
+
+{% block title %}Learning Resources{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container mt-5">
+    <h1 class="mb-4">Learning Resources</h1>
+    <ul>
+        {% for learning_resource in learning_resources %}
+        <li><a href="{% url 'learning_resource_detail' pk=learning_resource.ResourceID %}">{{ learning_resource.Title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

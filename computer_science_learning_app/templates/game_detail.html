@@ -1,0 +1,18 @@
+{% extends "base_template.html" %}
+
+{% block title %}Game Detail{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">{{ game.Title }}</h1>
+            <p>{{ game.Description }}</p>
+            <p><strong>Category:</strong> {{ game.Category }}</p>
+            <p><strong>Difficulty Level:</strong> {{ game.Difficulty_Level }}</p>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

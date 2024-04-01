@@ -1,0 +1,13 @@
+{% extends "base_template.html" %}
+
+{% block title %}Learning Resource Detail{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container mt-5">
+    <h1 class="mb-4">{{ learning_resource.Title }}</h1>
+    <p>{{ learning_resource.Description }}</p>
+    <p>Type: {{ learning_resource.Type }}</p>
+    <p>Content: <a href="{{ learning_resource.Content }}" target="_blank">{{ learning_resource.Content }}</a></p>
+</div>
+{% endblock %}
