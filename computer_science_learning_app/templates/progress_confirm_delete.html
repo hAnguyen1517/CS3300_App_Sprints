@@ -1,0 +1,16 @@
+{% extends "base_template.html" %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container mt-5">
+    <h1 class="mb-4">Confirm Delete</h1>
+    <p>Are you sure you want to delete the progress?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'progress_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

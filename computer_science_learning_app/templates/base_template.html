@@ -1,4 +1,3 @@
-<!-- base_template.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +11,8 @@
     <style>
       /* Custom styles */
       body {
-        background-color: #f8f9fa;
+        background-color: #e6f7ff;
+        /* Light blue background */
         color: #333;
         font-family: Arial, sans-serif;
       }
@@ -20,6 +20,8 @@
       .navbar-brand {
         font-size: 1.5rem;
         font-weight: bold;
+        color: #ff6f61;
+        /* Reddish color for the brand */
       }
 
       .nav-link {
@@ -27,15 +29,37 @@
       }
 
       .nav-link:hover {
-        color: #007bff;
+        color: #ff6f61;
+        /* Reddish color on hover */
       }
 
       .card {
         transition: all 0.3s ease-in-out;
+        background-color: #fff;
+        /* White background for cards */
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Soft shadow */
       }
 
       .card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        /* Bigger shadow on hover */
+      }
+
+      /* Custom button style */
+      .btn-primary {
+        background-color: #ff6f61;
+        /* Reddish color for primary button */
+        border-color: #ff6f61;
+      }
+
+      .btn-primary:hover {
+        background-color: #ff8c79;
+        /* Lighter reddish color on hover */
+        border-color: #ff8c79;
       }
     </style>
   </head>
@@ -44,7 +68,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#">Computer Science Learning Application</a>
+        <a class="navbar-brand" href="/">Computer Science Learning Application</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
             class="navbar-toggler-icon"></span></button>
@@ -63,10 +87,10 @@
               <a class="nav-link" href="{% url 'learning_resource_list' %}">Learning Resource</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Progress</a>
+              <a class="nav-link" href="{% url 'progress_list' %}">Progress</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Performance Report</a>
+              <a class="nav-link" href="{% url 'performance_report_list' %}">Performance Report</a>
             </li>
           </ul>
         </div>

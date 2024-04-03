@@ -1,153 +1,254 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usersys, Game, LearningResource, Progress, PerformanceReport
-from .forms import UsersysForm,GameForm
-from django.views.generic import ListView,DetailView,CreateView,UpdateView
+from .forms import (
+    UsersysForm,
+    GameForm,
+    LearningResourceForm,
+    ProgressForm,
+    PerformanceReportForm,
+)
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-# def index(request):
-#     # Retrieve the list of available games
-#     games = Game.objects.all()
-#     # Pass the games to the template context
-#     context = {'games': games}
-#     # Render the index.html template with the games data
-#     return render(request, 'index.html', context)
 
 class IndexView(ListView):
-    template_name = 'index.html'  # Specify the template to use
-    queryset = Game.objects.all()  # Specify the queryset to fetch games
-    context_object_name = 'games'  # Specify the context variable name for games list
+    # Display a list of games on the index page
+    template_name = "index.html"
+    queryset = Game.objects.all()
+    context_object_name = "games"
 
-
-# def usersys_list(request):
-#     users = Usersys.objects.all()
-#     return render(request, 'usersys_list.html', {'users': users})
 
 class UsersysListView(ListView):
-    template_name = 'usersys_list.html'  # Specify the template to use
-    queryset = Usersys.objects.all()  # Specify the queryset to fetch users
-    context_object_name = 'users'  # Specify the context variable name for users list
+    # Display a list of users
+    template_name = "usersys_list.html"
+    queryset = Usersys.objects.all()
+    context_object_name = "users"
 
-
-# def usersys_detail(request, pk):
-#     user = get_object_or_404(Usersys, pk=pk)
-#     return render(request, 'usersys_detail.html', {'user': user})
 
 class UsersysDetailView(DetailView):
-    model = Usersys  # Specify the model for the detail view
-    template_name = 'usersys_detail.html'  # Specify the template to use
-    context_object_name = 'user'  # Specify the context variable name for the user object
+    # Display details of a user
+    model = Usersys
+    template_name = "usersys_detail.html"
+    context_object_name = "user"
 
 
 class UsersysCreateView(CreateView):
-    model = Usersys  # Specify the model for the create view
-    form_class = UsersysForm  # Specify the form class to use
-    template_name = 'usersys_form.html'  # Specify the template to use
+    # Create a new user
+    model = Usersys
+    form_class = UsersysForm
+    template_name = "usersys_form.html"
 
     def form_valid(self, form):
+        # Save the user and redirect to their details page
         user = form.save()
-        return redirect('usersys_detail', pk=user.pk)
-    
+        return redirect("usersys_detail", pk=user.pk)
 
-
-# def usersys_update(request, pk):
-#     user = get_object_or_404(Usersys, pk=pk)
-#     if request.method == 'POST':
-#         form = UsersysForm(request.POST, instance=user)
-#         if form.is_valid():
-#             user = form.save()
-#             return redirect('usersys_detail', pk=user.pk)
-#     else:
-#         form = UsersysForm(instance=user)
-#     return render(request, 'usersys_form.html', {'form': form})
 
 class UsersysUpdateView(UpdateView):
-    model = Usersys  # Specify the model for the update view
-    form_class = UsersysForm  # Specify the form class to use
-    template_name = 'usersys_form.html'  # Specify the template to use
+    # Update an existing user
+    model = Usersys
+    form_class = UsersysForm
+    template_name = "usersys_form.html"
 
     def form_valid(self, form):
         user = form.save()
-        return redirect('usersys_detail', pk=user.pk)
+        return redirect("usersys_detail", pk=user.pk)
+
 
 def usersys_delete(request, pk):
+    # Delete an existing user
     user = get_object_or_404(Usersys, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         user.delete()
-        return redirect('usersys_list')
-    return render(request, 'usersys_confirm_delete.html', {'user': user})
+        return redirect("usersys_list")
+    return render(request, "usersys_confirm_delete.html", {"user": user})
+
 
 # Views for Game model
-def game_list(request):
-    games = Game.objects.all()
-    return render(request, 'game_list.html', {'games': games})
+class GameListView(ListView):
+    # Display a list of games on the games list page
+    model = Game
+    template_name = "game_list.html"
+    context_object_name = "games"
 
-def game_detail(request, pk):
-    game = get_object_or_404(Game, pk=pk)
-    return render(request, 'game_detail.html', {'game': game})
 
-def game_create(request):
-    if request.method == 'POST':
-        form = GameForm(request.POST)
-        if form.is_valid():
-            game = form.save()
-            return redirect('game_detail', pk=game.pk)
-    else:
-        form = GameForm()
-    return render(request, 'game_form.html', {'form': form})
+class GameDetailView(DetailView):
+    # Display details of the game
+    model = Game
+    template_name = "game_detail.html"
+    context_object_name = "game"
 
-def game_update(request, pk):
-    game = get_object_or_404(Game, pk=pk)
-    if request.method == 'POST':
-        form = GameForm(request.POST, instance=game)
-        if form.is_valid():
-            game = form.save()
-            return redirect('game_detail', pk=game.pk)
-    else:
-        form = GameForm(instance=game)
-    return render(request, 'game_form.html', {'form': form})
+
+class GameCreateView(CreateView):
+    # Create a new game
+    model = Game
+    form_class = GameForm
+    template_name = "game_form.html"
+
+    def form_valid(self, form):
+        game = form.save()
+        return redirect("game_detail", pk=game.pk)
+
+
+class GameUpdateView(UpdateView):
+    # Update an existing game
+    model = Game
+    form_class = GameForm
+    template_name = "game_form.html"
+
+    def form_valid(self, form):
+        game = form.save()
+        return redirect("game_detail", pk=game.pk)
+
 
 def game_delete(request, pk):
+    # Delete an existing game
     game = get_object_or_404(Game, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         game.delete()
-        return redirect('game_list')
-    return render(request, 'game_confirm_delete.html', {'game': game})
+        return redirect("game_list")
+    return render(request, "game_confirm_delete.html", {"game": game})
 
-# Views for LearningResource model (similar structure as Game model)
-def learning_resource_list(request):
-    learning_resources = LearningResource.objects.all()
-    return render(request, 'learning_resource_list.html', {'learning_resources': learning_resources})
 
-def learning_resource_detail(request, pk):
-    learning_resource = get_object_or_404(LearningResource, pk=pk)
-    return render(request, 'learning_resource_detail.html', {'learning_resource': learning_resource})
+# Views for LearningResource model
+class LearningResourceListView(ListView):
+    # Display a list of learning resources on the resources page
+    model = LearningResource
+    template_name = "learning_resource_list.html"
+    context_object_name = "learning_resources"
 
-def learning_resource_create(request):
-    if request.method == 'POST':
-        form = LearningResourceForm(request.POST)
-        if form.is_valid():
-            learning_resource = form.save()
-            return redirect('learning_resource_detail', pk=learning_resource.pk)
-    else:
-        form = LearningResourceForm()
-    return render(request, 'learning_resource_form.html', {'form': form})
+class LearningResourceDetailView(DetailView):
+    # Display details of a learning resource
+    model = LearningResource
+    template_name = "learning_resource_detail.html"
+    context_object_name = "learning_resource"
 
-def learning_resource_update(request, pk):
-    learning_resource = get_object_or_404(LearningResource, pk=pk)
-    if request.method == 'POST':
-        form = LearningResourceForm(request.POST, instance=learning_resource)
-        if form.is_valid():
-            learning_resource = form.save()
-            return redirect('learning_resource_detail', pk=learning_resource.pk)
-    else:
-        form = LearningResourceForm(instance=learning_resource)
-    return render(request, 'learning_resource_form.html', {'form': form})
+class LearningResourceCreateView(CreateView):
+    # Create a new learning resource
+    model = LearningResource
+    form_class = LearningResourceForm
+    template_name = "learning_resource_form.html"
+
+    def form_valid(self, form):
+        learning_resource = form.save()
+        return redirect("learning_resource_detail", pk=learning_resource.pk)
+
+class LearningResourceUpdateView(UpdateView):
+    # Update an existing learning resource
+    model = LearningResource
+    form_class = LearningResourceForm
+    template_name = "learning_resource_form.html"
+
+    def form_valid(self, form):
+        learning_resource = form.save()
+        return redirect("learning_resource_detail", pk=learning_resource.pk)
 
 def learning_resource_delete(request, pk):
+    # Delete an existing learning resource
     learning_resource = get_object_or_404(LearningResource, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         learning_resource.delete()
-        return redirect('learning_resource_list')
-    return render(request, 'learning_resource_confirm_delete.html', {'learning_resource': learning_resource})
-# Views for Progress model (similar structure as Game model)
+        return redirect("learning_resource_list")
+    return render(
+        request,
+        "learning_resource_confirm_delete.html",
+        {"learning_resource": learning_resource},
+    )
 
-# Views for PerformanceReport model (similar structure as Game model)
+
+# Views for Progress model (similar structure as Game model)
+class ProgressListView(ListView):
+    # Display a list of Progress on the progress page
+    model = Progress
+    template_name = "progress_list.html"
+    context_object_name = "progresses"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        for progress in queryset:
+            user = Usersys.objects.get(pk=progress.UserID_id)
+            progress.username = user.Username
+        return queryset
+
+class ProgressDetailView(DetailView):
+    # Display details of a progress record
+    model = Progress
+    template_name = "progress_detail.html"
+    context_object_name = "progress"
+
+class ProgressCreateView(CreateView):
+    # Create a new progress record
+    model = Progress
+    form_class = ProgressForm
+    template_name = "progress_form.html"
+
+    def form_valid(self, form):
+        progress = form.save()
+        return redirect("progress_detail", pk=progress.pk)
+
+class ProgressUpdateView(UpdateView):
+    # Update an existing progress record
+    model = Progress
+    form_class = ProgressForm
+    template_name = "progress_form.html"
+
+    def form_valid(self, form):
+        progress = form.save()
+        return redirect("progress_detail", pk=progress.pk)
+
+def progress_delete(request, pk):
+    # Delete an existing progress record
+    progress = get_object_or_404(Progress, pk=pk)
+    if request.method == "POST":
+        progress.delete()
+        return redirect("progress_list")
+    return render(request, "progress_confirm_delete.html", {"progress": progress})
+
+
+# Views for PerformanceReport model
+class PerformanceReportListView(ListView):
+    # Display a list of performance report records
+    model = PerformanceReport
+    template_name = "performance_report_list.html"
+    context_object_name = "reports"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        for report in queryset:
+            user = Usersys.objects.get(pk=report.UserID_id)
+            report.username = user.Username
+        return queryset
+
+class PerformanceReportDetailView(DetailView):
+    # Display details of a performance report
+    model = PerformanceReport
+    template_name = "performance_report_detail.html"
+    context_object_name = "report"
+
+class PerformanceReportCreateView(CreateView):
+    # Create a new performance report
+    model = PerformanceReport
+    form_class = PerformanceReportForm
+    template_name = "performance_report_form.html"
+
+    def form_valid(self, form):
+        report = form.save()
+        return redirect("performance_report_detail", pk=report.pk)
+
+class PerformanceReportUpdateView(UpdateView):
+    # Update an existing performance report
+    model = PerformanceReport
+    form_class = PerformanceReportForm
+    template_name = "performance_report_form.html"
+
+    def form_valid(self, form):
+        report = form.save()
+        return redirect("performance_report_detail", pk=report.pk)
+
+
+def performance_report_delete(request, pk):
+    # Delete an exiting performance report
+    report = get_object_or_404(PerformanceReport, pk=pk)
+    if request.method == "POST":
+        report.delete()
+        return redirect("performance_report_list")
+    return render(request, "performance_report_confirm_delete.html", {"report": report})

@@ -1,8 +1,11 @@
 {% extends "base_template.html" %}
 
-{% block title %}Available Games{% endblock %}
+{% block title %}Homepage{% endblock %}
 
 {% block content %}
+
+{% load static %}
+
 <!-- Page Content -->
 <div class="container mt-5">
   <h1 class="mb-4">Available Games</h1>
@@ -10,14 +13,15 @@
     {% for game in games %}
     <div class="col-md-4">
       <div class="card mb-4 shadow-sm">
-        <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.Title }}" />
+        <!-- <img src="{% static 'images/games.jpg' %}"> -->
+        <img src="{% static 'images/games.jpg' %}" class="card-img-top" alt="{{ game.Title }}" />
         <div class="card-body">
           <h5 class="card-title">{{ game.Title }}</h5>
           <p class="card-text">{{ game.Description }}</p>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <a href="{% url 'game_detail' pk=game.GameID %}" class="mr-2 btn btn-sm btn-primary">View</a>
-              <a href="#" class="btn btn-sm btn-primary">Play</a>
+              <a href="{% url 'game_detail' pk=game.GameID %}" class="m-1 p-2 btn btn-sm btn-primary">View</a>
+              <a href="#" class="m-1 p-2 btn btn-sm btn-primary">Play</a>
             </div>
             <small class="text-muted">Difficulty Level: {{ game.Difficulty_Level }}</small>
           </div>
@@ -26,5 +30,14 @@
     </div>
     {% endfor %}
   </div>
+  <div class="card p-3">
+    <p>Welcome to our Computer Science Learning Application! This application is designed to provide an interactive and
+      engaging platform for users to enhance their knowledge and skills in various computer science topics. Whether
+      you're
+      a student, parent, or teacher, there's something here for everyone.
+    </p>
+    <p>Start your learning journey today with our Computer Science Learning Application!</p>
+  </div>
+
 </div>
 {% endblock %}

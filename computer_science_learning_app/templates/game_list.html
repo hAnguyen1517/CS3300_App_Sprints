@@ -3,30 +3,35 @@
 {% block title %}Available Games{% endblock %}
 
 {% block content %}
+
+{% load static %}
+
 <!-- Page Content -->
 <div class="container mt-5">
     <h1 class="mb-4">Available Games</h1>
     <div class="col-6">
-        <a href="{% url 'game_create' %}" class="btn btn-sm btn-primary">Create New Game</a>
+        <a href="{% url 'game_create' %}" class="p-3 mb-2 btn btn-sm btn-primary">Create New Game</a>
     </div>
     <div class="row">
         {% for game in games %}
-        <div class="col-md-4 mt-3">
+        <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
+                <!-- <img src="{% static 'images/games.jpg' %}"> -->
+                <img src="{% static 'images/games.jpg' %}" class="card-img-top" alt="{{ game.Title }}" />
                 <div class="card-body">
                     <h5 class="card-title">{{ game.Title }}</h5>
                     <p class="card-text">{{ game.Description }}</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group m-2">
-                            <a href="{% url 'game_detail' pk=game.GameID %}" class="mr-2 btn btn-sm btn-primary">View</a>
-                            <a href="#" class="btn btn-sm btn-primary">Play</a>
+                        <div class="btn-group">
+                            <a href="{% url 'game_detail' pk=game.GameID %}"
+                                class="m-1 p-2 btn btn-sm btn-primary">View</a>
+                            <a href="#" class="m-1 p-2 btn btn-sm btn-primary">Play</a>
                         </div>
-                        <small class="text-muted">Category: {{ game.Category }}</small>
                         <small class="text-muted">Difficulty Level: {{ game.Difficulty_Level }}</small>
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
         {% endfor %}
     </div>
 </div>

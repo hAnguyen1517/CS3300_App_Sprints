@@ -1,5 +1,6 @@
 from django.db import models
-from django.urls import reverse 
+from django.urls import reverse
+
 
 class Usersys(models.Model):
     # Primary Key for the User table
@@ -7,23 +8,25 @@ class Usersys(models.Model):
     # Username field
     Username = models.CharField(max_length=100)
     # Password field (assumed hashed)
-    Password = models.CharField(max_length=100)  # Assuming hashed password will be stored
+    Password = models.CharField(
+        max_length=100
+    )  # Assuming hashed password will be stored
     # Email field
     Email = models.EmailField()
     # Role choices field (e.g., student, parent, teacher)
     Role_choices = [
-        ('student', 'Student'),
-        ('parent', 'Parent'),
-        ('teacher', 'Teacher')
+        ("student", "Student"),
+        ("parent", "Parent"),
+        ("teacher", "Teacher"),
     ]
     # Role field
     Role = models.CharField(max_length=20, choices=Role_choices)
 
     def __str__(self):
         return self.Username
-    
+
     def get_absolute_url(self):
-        return reverse('user-detail', args=[str(self.UserID)])
+        return reverse("user-detail", args=[str(self.UserID)])
 
 
 class Game(models.Model):
@@ -40,9 +43,10 @@ class Game(models.Model):
 
     def __str__(self):
         return self.Title
-    
+
     def get_absolute_url(self):
-        return reverse('game-detail', args=[str(self.GameID)])
+        return reverse("game-detail", args=[str(self.GameID)])
+
 
 class LearningResource(models.Model):
     # Primary Key for the LearningResource table
@@ -50,11 +54,7 @@ class LearningResource(models.Model):
     # Title field
     Title = models.CharField(max_length=100)
     # Type choices field (e.g., lesson, tutorial, movie)
-    Type_choices = [
-        ('lesson', 'Lesson'),
-        ('tutorial', 'Tutorial'),
-        ('movie', 'Movie')
-    ]
+    Type_choices = [("lesson", "Lesson"), ("tutorial", "Tutorial"), ("movie", "Movie")]
     # Type field
     Type = models.CharField(max_length=20, choices=Type_choices)
     # Description field
@@ -64,13 +64,13 @@ class LearningResource(models.Model):
     # Age Appropriateness field
     Age_Appropriateness = models.CharField(max_length=50)
 
-
     def __str__(self):
         return self.Title
-    
+
     def get_absolute_url(self):
-        return reverse('learning-detail', args=[str(self.ResourceID)])
-    
+        return reverse("learning-detail", args=[str(self.ResourceID)])
+
+
 class Progress(models.Model):
     # Primary Key for the Progress table
     ProgressID = models.AutoField(primary_key=True)
@@ -87,9 +87,10 @@ class Progress(models.Model):
 
     def __str__(self):
         return self.UserID
-    
+
     def get_absolute_url(self):
-        return reverse('user-detail', args=[str(self.ProgressID)])
+        return reverse("user-detail", args=[str(self.ProgressID)])
+
 
 class PerformanceReport(models.Model):
     # Primary Key for the PerformanceReport table
@@ -105,6 +106,6 @@ class PerformanceReport(models.Model):
 
     def __str__(self):
         return self.UserID
-    
+
     def get_absolute_url(self):
-        return reverse('user-detail', args=[str(self.ReportID)])
+        return reverse("user-detail", args=[str(self.ReportID)])

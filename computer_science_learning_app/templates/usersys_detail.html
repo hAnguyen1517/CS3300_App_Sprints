@@ -1,17 +1,24 @@
 {% extends "base_template.html" %}
 
-{% block title %}Available Games{% endblock %}
+{% block title %}User Details{% endblock %}
 
 {% block content %}
 <!-- Page Content -->
 <div class="container mt-5">
-    <h1>User Details</h1>
-    <div>
-        <p><strong>User ID:</strong> {{ user.UserID }}</p>
-        <p><strong>Name:</strong> {{ user.Username }}</p>
-        <p><strong>Email:</strong> {{ user.Email }}</p>
-        <p><strong>Role:</strong> {{ user.Role }}</p>
-        
+    <h1 class="mb-4">User Details</h1>
+    <div class="card p-4">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-2"><strong>User ID:</strong> {{ user.UserID }}</p>
+                <p class="mb-2"><strong>Name:</strong> {{ user.Username }}</p>
+                <p class="mb-2"><strong>Email:</strong> {{ user.Email }}</p>
+                <p class="mb-2"><strong>Role:</strong> {{ user.Role }}</p>
+            </div>
+
+        </div>
+        <div>
+            <a href="{% url 'usersys_delete' pk=user.UserID %}" class="btn btn-primary">Delete User</a>
+        </div>
     </div>
 </div>
 {% endblock %}

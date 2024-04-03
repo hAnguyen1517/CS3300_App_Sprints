@@ -1,43 +1,44 @@
-"""
-URL configuration for computer_science_learning_app project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
-from . import views
-from .views import IndexView,UsersysListView,UsersysDetailView,UsersysCreateView,UsersysUpdateView,game_list,game_detail,game_create,game_update
+from .views import IndexView, UsersysListView, UsersysDetailView, UsersysCreateView, UsersysUpdateView, GameListView, GameDetailView, GameCreateView, GameUpdateView, LearningResourceListView, LearningResourceDetailView, LearningResourceCreateView, LearningResourceUpdateView, ProgressListView, ProgressDetailView, ProgressCreateView, ProgressUpdateView, PerformanceReportListView, PerformanceReportDetailView, PerformanceReportCreateView, PerformanceReportUpdateView, usersys_delete, game_delete, learning_resource_delete, progress_delete, performance_report_delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
-    # users urls
-    path('users/', UsersysListView.as_view(), name='usersys_list'),  # Map the URL to the UsersysListView
-    path('users/<int:pk>/', UsersysDetailView.as_view(), name='usersys_detail'),  # Map the URL to the UsersysDetailView
+
+    # Users URLs
+    path('users/', UsersysListView.as_view(), name='usersys_list'),
+    path('users/<int:pk>/', UsersysDetailView.as_view(), name='usersys_detail'),
     path('users/create/', UsersysCreateView.as_view(), name='usersys_create'),
     path('users/<int:pk>/edit/', UsersysUpdateView.as_view(), name='usersys_edit'),
-    # games urls
-    path('games/', game_list, name='game_list'),
-    path('games/<int:pk>/', game_detail, name='game_detail'),
-    path('games/create/', game_create, name='game_create'),
-    path('games/<int:pk>/update/', game_update, name='game_update'),
-    # learning resources urls    
-    path('learning_resources/', views.learning_resource_list, name='learning_resource_list'),
-    path('learning_resources/<int:pk>/', views.learning_resource_detail, name='learning_resource_detail'),
-    path('learning_resources/create/', views.learning_resource_create, name='learning_resource_create'),
-    path('learning_resources/<int:pk>/update/', views.learning_resource_update, name='learning_resource_update'),
-    path('learning_resources/<int:pk>/delete/', views.learning_resource_delete, name='learning_resource_delete'),
+    path('users/delete/<int:pk>/', usersys_delete, name='usersys_delete'),
+    
+    # Games URLs
+    path('games/', GameListView.as_view(), name='game_list'),
+    path('games/<int:pk>/', GameDetailView.as_view(), name='game_detail'),
+    path('games/create/', GameCreateView.as_view(), name='game_create'),
+    path('games/<int:pk>/update/', GameUpdateView.as_view(), name='game_update'),
+    path('games/<int:pk>/delete/', game_delete, name='game_delete'),
 
+    # Learning Resources URLs
+    path('learning_resources/', LearningResourceListView.as_view(), name='learning_resource_list'),
+    path('learning_resources/<int:pk>/', LearningResourceDetailView.as_view(), name='learning_resource_detail'),
+    path('learning_resources/create/', LearningResourceCreateView.as_view(), name='learning_resource_create'),
+    path('learning_resources/<int:pk>/update/', LearningResourceUpdateView.as_view(), name='learning_resource_update'),
+    path('learning_resources/<int:pk>/delete/', learning_resource_delete, name='learning_resource_delete'),
+
+    # Progress URLs
+    path('progress/', ProgressListView.as_view(), name='progress_list'),
+    path('progress/<int:pk>/', ProgressDetailView.as_view(), name='progress_detail'),
+    path('progress/create/', ProgressCreateView.as_view(), name='progress_create'),
+    path('progress/<int:pk>/update/', ProgressUpdateView.as_view(), name='progress_update'),
+    path('progress/<int:pk>/delete/', progress_delete, name='progress_delete'),
+
+    # Performance Report URLs
+    path('performance_reports/', PerformanceReportListView.as_view(), name='performance_report_list'),
+    path('performance_reports/<int:pk>/', PerformanceReportDetailView.as_view(), name='performance_report_detail'),
+    path('performance_reports/create/', PerformanceReportCreateView.as_view(), name='performance_report_create'),
+    path('performance_reports/<int:pk>/update/', PerformanceReportUpdateView.as_view(), name='performance_report_update'),
+    path('performance_reports/<int:pk>/delete/', performance_report_delete, name='performance_report_delete'),
 
 ]

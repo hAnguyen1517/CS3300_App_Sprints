@@ -6,9 +6,16 @@
 <!-- Page Content -->
 <div class="container mt-5">
     <h1 class="mb-4">Learning Resources</h1>
-    <ul>
+    <div class="col-6">
+        <a href="{% url 'learning_resource_create' %}" class="p-3 mb-2 btn btn-sm btn-primary">Create New Resource</a>
+    </div>
+    <ul class="list-group">
         {% for learning_resource in learning_resources %}
-        <li><a href="{% url 'learning_resource_detail' pk=learning_resource.ResourceID %}">{{ learning_resource.Title }}</a>
+        <li class="list-group-item  m-2">
+            <p>Type: {{learning_resource.Type}} </br> Title: {{ learning_resource.Title }} </br>
+                <a href="{% url 'learning_resource_detail' pk=learning_resource.ResourceID %}"
+                    class="btn btn-primary p-2 m-1">View Resource</a>
+            </p>
         </li>
         {% endfor %}
     </ul>
