@@ -1,110 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Homepage{% endblock %}</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Custom CSS -->
-    <style>
-      /* Custom styles */
-      body {
-        background-color: #e6f7ff;
-        /* Light blue background */
-        color: #333;
-        font-family: Arial, sans-serif;
-      }
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>
+            {% block title %}Homepage
+            {% endblock %}
+        </title>
+        <!-- Bootstrap CSS -->
+        <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- Custom CSS -->
+        <style>
+            /* Custom styles */
+            body {
+                background-color: #e6f7ff;
+                /* Light blue background */
+                color: #333;
+                font-family: Arial, sans-serif;
+            }
 
-      .navbar-brand {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #ff6f61;
-        /* Reddish color for the brand */
-      }
+            .navbar-brand {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #ff6f61;
+                /* Reddish color for the brand */
+            }
 
-      .nav-link {
-        color: #333;
-      }
+            .nav-link {
+                color: #333;
+            }
 
-      .nav-link:hover {
-        color: #ff6f61;
-        /* Reddish color on hover */
-      }
+            .nav-link:hover {
+                color: #ff6f61;
+                /* Reddish color on hover */
+            }
 
-      .card {
-        transition: all 0.3s ease-in-out;
-        background-color: #fff;
-        /* White background for cards */
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        /* Soft shadow */
-      }
+            .card {
+                transition: all 0.3s ease-in-out;
+                background-color: #fff;
+                /* White background for cards */
+                border: none;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                /* Soft shadow */
+            }
 
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-        /* Bigger shadow on hover */
-      }
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+                /* Bigger shadow on hover */
+            }
 
-      /* Custom button style */
-      .btn-primary {
-        background-color: #ff6f61;
-        /* Reddish color for primary button */
-        border-color: #ff6f61;
-      }
+            /* Custom button style */
+            .btn-primary {
+                background-color: #ff6f61;
+                /* Reddish color for primary button */
+                border-color: #ff6f61;
+            }
 
-      .btn-primary:hover {
-        background-color: #ff8c79;
-        /* Lighter reddish color on hover */
-        border-color: #ff8c79;
-      }
-    </style>
-  </head>
+            .btn-primary:hover {
+                background-color: #ff8c79;
+                /* Lighter reddish color on hover */
+                border-color: #ff8c79;
+            }
 
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="/">Computer Science Learning Application</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
-            class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'usersys_list' %}">Users</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'game_list' %}">Games</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'learning_resource_list' %}">Learning Resource</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'progress_list' %}">Progress</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'performance_report_list' %}">Performance Report</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+            /* Improve contrast for accessibility */
+            body,
+            .navbar,
+            .nav-link,
+            .card {
+                color: #333;
+            }
 
-    <!-- Page Content -->
-    <div class="container mt-5">
-      {% block content %}
-      {% endblock %}
-    </div>
+            a:focus,
+            input:focus,
+            button:focus {
+                outline: none;
+                /* Remove focus outline */
+            }
 
-    <!-- Bootstrap JS  -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+            /* Increase contrast for focus states */
+            a:focus,
+            button:focus {
+                border: 1px solid #ff6f61;
+                /* Reddish border for focus */
+            }
 
-</html>
+            /* Improve keyboard navigation */
+            .nav-link,
+            button {
+                padding: 0.5rem 1rem;
+                /* Add padding to improve click/tap targets */
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="/">Computer Science Learning Application</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'usersys_list' %}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'game_list' %}">Games</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'learning_resource_list' %}">Learning Resource</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'progress_list' %}">Progress</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'performance_report_list' %}">Performance Report</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container mt-5"> {% block content %}{% endblock %}
+            </div>
+
+            <!-- Bootstrap JS  -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+
+    </html>
