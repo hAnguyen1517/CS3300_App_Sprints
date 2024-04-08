@@ -1,0 +1,24 @@
+{% extends "base_template.html" %}
+
+{% block title %}Learning Resource Detail{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ learning_resource.Title }}</h1>
+            <p class="card-text">{{ learning_resource.Description }}</p>
+            <p class="card-text">Type: {{ learning_resource.Type }}</p>
+            <p class="card-text">Content: <a href="{{ learning_resource.Content }}" target="_blank">{{ learning_resource.Content }}</a>
+            </p>
+            <div>
+                <a href="{% url 'learning_resource_update' pk=learning_resource.ResourceID %}"
+                    class="p-2 m-2 btn btn-primary">Edit</a>
+                <a href="{% url 'learning_resource_delete' pk=learning_resource.ResourceID %}"
+                    class="p-2 m-2 btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
