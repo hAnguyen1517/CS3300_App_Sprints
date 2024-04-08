@@ -66,14 +66,16 @@
                 border-color: #ff8c79;
             }
 
-            /* Improve contrast for accessibility */
+            /* Improve contrast for accessibility
+            allow users with visual impairment to clearly see items on the web application
+            */
             body,
             .navbar,
             .nav-link,
             .card {
                 color: #333;
             }
-
+            /* Allow anyone able to focus on what they hover on */
             a:focus,
             input:focus,
             button:focus {
@@ -81,7 +83,7 @@
                 /* Remove focus outline */
             }
 
-            /* Increase contrast for focus states */
+            /* Increase contrast for focus on each link and button item  */
             a:focus,
             button:focus {
                 border: 1px solid #ff6f61;
@@ -99,30 +101,46 @@
 
     <body>
         <!-- Navbar -->
+        <!-- Navbar with light background color -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- Container to hold navbar contents -->
             <div class="container">
+                <!-- Branding link for the application -->
                 <a class="navbar-brand" href="/">Computer Science Learning Application</a>
+               <!-- Button for toggling navbar collapse on smaller screens -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <!-- Icon for the toggler button -->
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- Navbar COLLAPSE CONTENT will collapse into a toggler button on smaller screens -->
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Navbar LIST aligned to the right on larger screens -->
                     <ul class="navbar-nav ms-auto">
+                        <!-- Individual navbar item -->
                         <li class="nav-item">
+                            <!-- Link to the home page -->
                             <a class="nav-link" href="/">Home</a>
                         </li>
+                        <!-- Individual navbar item -->
                         <li class="nav-item">
+                             <!-- Link to the users list page, URL generated using Django template tag -->
                             <a class="nav-link" href="{% url 'usersys_list' %}">Users</a>
                         </li>
+                        <!-- Individual navbar item -->
                         <li class="nav-item">
+                            <!-- Link to the games list page, URL generated using Django template tag -->
                             <a class="nav-link" href="{% url 'game_list' %}">Games</a>
                         </li>
                         <li class="nav-item">
+                            <!-- Link to the learning resources list page, URL generated using Django template tag -->
                             <a class="nav-link" href="{% url 'learning_resource_list' %}">Learning Resource</a>
                         </li>
                         <li class="nav-item">
+                            <!-- Link to the progress list page, URL generated using Django template tag -->
                             <a class="nav-link" href="{% url 'progress_list' %}">Progress</a>
                         </li>
                         <li class="nav-item">
+                            <!-- Link to the performance report list page, URL generated using Django template tag -->
                             <a class="nav-link" href="{% url 'performance_report_list' %}">Performance Report</a>
                         </li>
                     </ul>

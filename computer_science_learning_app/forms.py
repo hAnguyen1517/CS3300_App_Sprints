@@ -1,42 +1,49 @@
 from django import forms
 from .models import Game, Usersys, LearningResource, Progress, PerformanceReport
 
-
+# Form for viewing/ creating/ updating/ deleting a Game instance
 class GameForm(forms.ModelForm):
+    # configures the form based on the corresponding model, 
+    #controlling how it behaves and what data it collects
     class Meta:
+         # Specify the model to use for the form
         model = Game
-        # Specify the model to use for the form
-        fields = ["Title", "Description", "Category", "Difficulty_Level"]
         # Specify the fields to include in the form
+        fields = ["Title", "Description", "Category", "Difficulty_Level"]
+        
 
-
+# Form for viewing/ creating/ updating/ deleting a Usersys instance
 class UsersysForm(forms.ModelForm):
     class Meta:
-        model = Usersys
         # Specify the model to use for the form
-        fields = ["Username", "Password", "Email", "Role"]
+        model = Usersys
         # Specify the fields to include in the form
+        fields = ["Username", "Password", "Email", "Role"]
+        
 
-
+# Form for viewing/ creating/ updating/ deleting a LearningResource instance
 class LearningResourceForm(forms.ModelForm):
     class Meta:
+         # Specify the model to use for the form
         model = LearningResource
-        # Specify the model to use for the form
+         # Specify the fields to include in the form
         fields = ["Title", "Type", "Description", "Content", "Age_Appropriateness"]
-        # Specify the fields to include in the form
+       
 
-
+# Form for creating a Progress instance
 class ProgressForm(forms.ModelForm):
     class Meta:
+         # Specify the model to use for the form
         model = Progress
-        # Specify the model to use for the form
+         # Specify the fields to include in the form
         fields = ["UserID", "ResourceID", "CompletionStatus", "Grade", "TimeSpent"]
-        # Specify the fields to include in the form
+       
 
-
+# Form for creating a PerformanceReport instance
 class PerformanceReportForm(forms.ModelForm):
     class Meta:
-        model = PerformanceReport
         # Specify the model to use for the form
-        fields = ["UserID", "TasksCompleted", "AverageGrade", "AreasForDevelopment"]
+        model = PerformanceReport
         # Specify the fields to include in the form
+        fields = ["UserID", "TasksCompleted", "AverageGrade", "AreasForDevelopment"]
+        
