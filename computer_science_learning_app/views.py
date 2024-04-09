@@ -8,7 +8,7 @@ from .forms import (
     PerformanceReportForm,
 )
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class IndexView(ListView):
     # Display a list of games on the index page
@@ -20,7 +20,7 @@ class IndexView(ListView):
 # Retrieves all Usersys objects from the database
 # and sends them to the template specified in 'template_name'
 # The context variable 'users' is used to access the list of users in the template
-class UsersysListView(ListView):
+class UsersysListView(LoginRequiredMixin, ListView):
     template_name = "usersys_list.html"
     queryset = Usersys.objects.all()
     context_object_name = "users"
@@ -29,7 +29,7 @@ class UsersysListView(ListView):
 # Retrieves a single Usersys object from the database based on the provided URL parameter (usually user's primary key)
 # and sends it to the template specified in 'template_name'
 # The context variable 'user' is used to access the user object in the template
-class UsersysDetailView(DetailView):
+class UsersysDetailView(LoginRequiredMixin, DetailView):
     # Display details of a user
     model = Usersys
     template_name = "usersys_detail.html"
@@ -39,7 +39,7 @@ class UsersysDetailView(DetailView):
 # Uses the UsersysForm form to display the form for creating a new user
 # When the form is submitted and valid, the new user is saved to the database
 # The user is then redirected to their details page using the URL named 'usersys_detail' with the user's primary key as a parameter
-class UsersysCreateView(CreateView):
+class UsersysCreateView(LoginRequiredMixin, CreateView):
     # Create a new user
     model = Usersys
     form_class = UsersysForm
@@ -54,7 +54,7 @@ class UsersysCreateView(CreateView):
 # Uses the UsersysForm form to display the form for updating an existing user
 # When the form is submitted and valid, the updated user is saved to the database
 # The user is then redirected to their details page using the URL named 'usersys_detail' with the user's primary key as a parameter
-class UsersysUpdateView(UpdateView):
+class UsersysUpdateView(LoginRequiredMixin, UpdateView):
     # Update an existing user
     model = Usersys
     form_class = UsersysForm
