@@ -1,6 +1,6 @@
-**CS3300_App_Sprints:**  https://github.com/hAnguyen1517/CS3300_App_Sprints 
+**CS3300_App_Sprint02:**  https://github.com/hAnguyen1517/CS3300_App_Sprints/tree/sprint02 
 
-**GitHub Sprint01 Project Board:** https://github.com/users/hAnguyen1517/projects/4/views/1
+**GitHub Sprint02 Project Board:** https://github.com/users/hAnguyen1517/projects/5 
 
 **UML class diagram for model:** https://bit.ly/UMLClassDiagram 
 
