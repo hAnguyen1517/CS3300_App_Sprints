@@ -6,9 +6,42 @@ from .forms import (
     LearningResourceForm,
     ProgressForm,
     PerformanceReportForm,
+    SignupForm,
+    LoginForm
+    
 )
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.contrib.auth import login, authenticate
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return redirect('home')  # Redirect to the home page after successful signup
+    else:
+        form = SignupForm()
+    return render(request, 'signup.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')  # Redirect to the home page after successful login
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
 class IndexView(ListView):
     # Display a list of games on the index page

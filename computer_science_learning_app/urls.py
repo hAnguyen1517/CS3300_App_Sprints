@@ -1,11 +1,14 @@
 from django.contrib import admin
 from django.urls import path
 from .views import IndexView, UsersysListView, UsersysDetailView, UsersysCreateView, UsersysUpdateView, GameListView, GameDetailView, GameCreateView, GameUpdateView, LearningResourceListView, LearningResourceDetailView, LearningResourceCreateView, LearningResourceUpdateView, ProgressListView, ProgressDetailView, ProgressCreateView, ProgressUpdateView, PerformanceReportListView, PerformanceReportDetailView, PerformanceReportCreateView, PerformanceReportUpdateView, usersys_delete, game_delete, learning_resource_delete, progress_delete, performance_report_delete
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
 
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.login_view, name='login'),
     # Users URLs
     path('users/', UsersysListView.as_view(), name='usersys_list'),
     path('users/<int:pk>/', UsersysDetailView.as_view(), name='usersys_detail'),

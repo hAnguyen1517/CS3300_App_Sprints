@@ -1,6 +1,17 @@
 from django import forms
 from .models import Game, Usersys, LearningResource, Progress, PerformanceReport
 
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+class SignupForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = Usersys
+        fields = ["Username", "Email", "password", "Role"]
 # Form for viewing/ creating/ updating/ deleting a Game instance
 class GameForm(forms.ModelForm):
     # configures the form based on the corresponding model, 
@@ -18,7 +29,7 @@ class UsersysForm(forms.ModelForm):
         # Specify the model to use for the form
         model = Usersys
         # Specify the fields to include in the form
-        fields = ["Username", "Password", "Email", "Role"]
+        fields = ["Username", "Email", "Role"]
         
 
 # Form for viewing/ creating/ updating/ deleting a LearningResource instance
@@ -46,4 +57,4 @@ class PerformanceReportForm(forms.ModelForm):
         model = PerformanceReport
         # Specify the fields to include in the form
         fields = ["UserID", "TasksCompleted", "AverageGrade", "AreasForDevelopment"]
-        
+ 
