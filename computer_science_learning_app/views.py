@@ -11,7 +11,6 @@ from .forms import (
     
 )
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth import login, authenticate
 
@@ -24,7 +23,7 @@ def signup(request):
             user.set_password(password)
             user.save()
             login(request, user)
-            return redirect('home')  # Redirect to the home page after successful signup
+            return redirect('index')  
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
@@ -36,9 +35,12 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
+            print(username)
+            print(password)
+            print(user)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Redirect to the home page after successful login
+                return redirect('index')  
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
@@ -53,7 +55,7 @@ class IndexView(ListView):
 # Retrieves all Usersys objects from the database
 # and sends them to the template specified in 'template_name'
 # The context variable 'users' is used to access the list of users in the template
-class UsersysListView(LoginRequiredMixin, ListView):
+class UsersysListView(ListView):
     template_name = "usersys_list.html"
     queryset = Usersys.objects.all()
     context_object_name = "users"
@@ -62,7 +64,7 @@ class UsersysListView(LoginRequiredMixin, ListView):
 # Retrieves a single Usersys object from the database based on the provided URL parameter (usually user's primary key)
 # and sends it to the template specified in 'template_name'
 # The context variable 'user' is used to access the user object in the template
-class UsersysDetailView(LoginRequiredMixin, DetailView):
+class UsersysDetailView(DetailView):
     # Display details of a user
     model = Usersys
     template_name = "usersys_detail.html"
@@ -72,7 +74,7 @@ class UsersysDetailView(LoginRequiredMixin, DetailView):
 # Uses the UsersysForm form to display the form for creating a new user
 # When the form is submitted and valid, the new user is saved to the database
 # The user is then redirected to their details page using the URL named 'usersys_detail' with the user's primary key as a parameter
-class UsersysCreateView(LoginRequiredMixin, CreateView):
+class UsersysCreateView(CreateView):
     # Create a new user
     model = Usersys
     form_class = UsersysForm
@@ -87,7 +89,7 @@ class UsersysCreateView(LoginRequiredMixin, CreateView):
 # Uses the UsersysForm form to display the form for updating an existing user
 # When the form is submitted and valid, the updated user is saved to the database
 # The user is then redirected to their details page using the URL named 'usersys_detail' with the user's primary key as a parameter
-class UsersysUpdateView(LoginRequiredMixin, UpdateView):
+class UsersysUpdateView(UpdateView):
     # Update an existing user
     model = Usersys
     form_class = UsersysForm
