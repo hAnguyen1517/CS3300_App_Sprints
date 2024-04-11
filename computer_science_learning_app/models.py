@@ -81,7 +81,7 @@ class Usersys(AbstractBaseUser):
     
     objects = UsersysManager()
 
-    USERNAME_FIELD = 'Email'
+    USERNAME_FIELD = 'Username'
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):

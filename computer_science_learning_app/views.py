@@ -21,6 +21,8 @@ def signup(request):
             user = form.save(commit=False)
             password = form.cleaned_data.get('password')
             user.set_password(password)
+            # check if password is sent raw we can login
+            # user.password = password
             user.save()
             login(request, user)
             return redirect('index')  
@@ -28,16 +30,20 @@ def signup(request):
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
 
+# Handle login requests
 def login_view(request):
+    # If the request method is POST, process the login form
     if request.method == 'POST':
         form = LoginForm(request.POST)
+        # If the form is valid, extract username and password
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(request, Username=username, password=password)
             print(username)
             print(password)
             print(user)
+            # If user authentication is successful, log in the user
             if user is not None:
                 login(request, user)
                 return redirect('index')  
