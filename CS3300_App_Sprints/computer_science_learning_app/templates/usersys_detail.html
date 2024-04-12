@@ -1,0 +1,38 @@
+<!-- Extends the base template to inherit its structure -->
+{% extends "base_template.html" %}
+
+<!-- Defines the title of the page -->
+{% block title %}User Details{% endblock %}
+
+<!-- This block contains the main content of the page -->
+{% block content %}
+<!-- Container to hold the content, with top margin -->
+<div class="container mt-5">
+    <!-- Heading for the user details section -->
+    <h1 class="mb-4">User Details</h1>
+    <!-- Bootstrap card component with padding -->
+    <div class="card p-4">
+        <!-- Row to contain the user details -->
+        <div class="row">
+            <!-- Column to display user details -->
+            <div class="col-md-6">
+                <!-- Paragraph to display user ID -->
+                <p class="mb-2"><strong>User ID:</strong> {{ user.UserID }}</p>
+                <!-- Paragraph to display username -->
+                <p class="mb-2"><strong>Name:</strong> {{ user.Username }}</p>
+                 <!-- Paragraph to display user's email -->
+                <p class="mb-2"><strong>Email:</strong> {{ user.Email }}</p>
+                <!-- Paragraph to display user's role -->
+                <p class="mb-2"><strong>Role:</strong> {{ user.Role }}</p>
+            </div>
+
+        </div>
+        <div>
+            <!-- Additional actions -->
+            <!-- Button to delete the user -->
+            <!-- The URL for deletion is dynamically generated using the user's ID -->
+            <a href="{% url 'usersys_delete' pk=user.UserID %}" class="btn btn-primary">Delete User</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
