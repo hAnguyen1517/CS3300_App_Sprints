@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from computer_science_learning_app.models import Usersys, Game, LearningResource, Progress, PerformanceReport
 from computer_science_learning_app.forms import SignupForm, LoginForm
 
-
+# Testing the URL views 
 class TestViews(TestCase):
     def setUp(self):
         self.client = Client()

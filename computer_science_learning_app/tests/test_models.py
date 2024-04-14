@@ -1,7 +1,7 @@
 from django.test import TestCase
 from computer_science_learning_app.models import Usersys, Game, LearningResource, Progress, PerformanceReport
 
-
+#Testing creating User objects to the model as well as fetching from the model table in database
 class UsersysModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -17,7 +17,7 @@ class UsersysModelTest(TestCase):
         user = Usersys.objects.get(UserID=1)
         self.assertEqual(user.get_full_name(), user.Username)
 
-
+#Testing creating Game objects to the model as well as fetching from the model table in database
 class GameModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -28,6 +28,8 @@ class GameModelTest(TestCase):
         game = Game.objects.get(GameID=1)
         field_label = game._meta.get_field('Title').verbose_name
         self.assertEqual(field_label, 'Title')
+
+#Testing creating Learning Resouce objects to the model as well as fetching from the model table in database
 class LearningResourceModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -38,7 +40,7 @@ class LearningResourceModelTest(TestCase):
         field_label = resource._meta.get_field('Title').verbose_name
         self.assertEqual(field_label, 'Title')
 
-
+#Testing creating Progress Report objects to the model as well as fetching from the model table in database
 class ProgressModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -52,7 +54,7 @@ class ProgressModelTest(TestCase):
         field_label = progress._meta.get_field('CompletionStatus').verbose_name
         self.assertEqual(field_label, 'Completion Status')
 
-
+#Testing creating Performance Report objects to the model as well as fetching from the model table in database
 class PerformanceReportModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
