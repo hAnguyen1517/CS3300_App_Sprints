@@ -11,8 +11,10 @@ from .forms import (
     
 )
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-
+from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # def signup(request):
 #     if request.method == 'POST':
@@ -55,18 +57,47 @@ def registerPage(request):
         if form.is_valid():
             user = form.save(commit=False)
             password = form.cleaned_data.get('password')
+            username = form.cleaned_data.get('Username')
+            email = form.cleaned_data.get('Email')
             user.set_password(password)
             # check if password is sent raw we can login
             # user.password = password
             user.save()
-            login(request, user)
-            
+            # Mirror user creation to auth_user table
+            auth_user = User(username=username, email=email)  # Set username explicitly
+            auth_user.set_password(password)
+            auth_user.save()
+
             return redirect('index')  
     else:
         form = SignupForm()
     return render(request, 'registration/register.html', {'form': form})
 
-class IndexView(ListView):
+def loginPage(request):
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, Username=username, password=password)
+            print(username)
+            print(password)
+            print(user)
+            if user is not None:
+                login(request, user)
+                # return redirect('index')  
+    else:
+        form = LoginForm()
+
+    return render(request, 'registration/login.html', {'form': form})
+
+def logoutPage(request):   
+    logout(request)
+    messages.success(request, "You have been logged out successfully.")
+    return redirect('login')  # Redirect to your login page URL name
+
+class IndexView(LoginRequiredMixin,ListView):
     # Display a list of games on the index page
     template_name = "index.html"
     queryset = Game.objects.all()
@@ -76,7 +107,7 @@ class IndexView(ListView):
 # Retrieves all Usersys objects from the database
 # and sends them to the template specified in 'template_name'
 # The context variable 'users' is used to access the list of users in the template
-class UsersysListView(ListView):
+class UsersysListView(LoginRequiredMixin, ListView):
     template_name = "usersys_list.html"
     queryset = Usersys.objects.all()
     context_object_name = "users"
@@ -85,7 +116,7 @@ class UsersysListView(ListView):
 # Retrieves a single Usersys object from the database based on the provided URL parameter (usually user's primary key)
 # and sends it to the template specified in 'template_name'
 # The context variable 'user' is used to access the user object in the template
-class UsersysDetailView(DetailView):
+class UsersysDetailView(LoginRequiredMixin, DetailView):
     # Display details of a user
     model = Usersys
     template_name = "usersys_detail.html"
@@ -95,7 +126,7 @@ class UsersysDetailView(DetailView):
 # Uses the UsersysForm form to display the form for creating a new user
 # When the form is submitted and valid, the new user is saved to the database
 # The user is then redirected to their details page using the URL named 'usersys_detail' with the user's primary key as a parameter
-class UsersysCreateView(CreateView):
+class UsersysCreateView(LoginRequiredMixin, CreateView):
     # Create a new user
     model = Usersys
     form_class = UsersysForm
@@ -110,7 +141,7 @@ class UsersysCreateView(CreateView):
 # Uses the UsersysForm form to display the form for updating an existing user
 # When the form is submitted and valid, the updated user is saved to the database
 # The user is then redirected to their details page using the URL named 'usersys_detail' with the user's primary key as a parameter
-class UsersysUpdateView(UpdateView):
+class UsersysUpdateView(LoginRequiredMixin, UpdateView):
     # Update an existing user
     model = Usersys
     form_class = UsersysForm
@@ -140,7 +171,7 @@ def usersys_delete(request, pk):
 # Retrieves all Game objects from the database
 # and sends them to the template specified in 'template_name'
 # The context variable 'games' is used to access the list of games in the template
-class GameListView(ListView):
+class GameListView(LoginRequiredMixin,ListView):
     # Display a list of games on the games list page
     model = Game
     template_name = "game_list.html"
@@ -150,7 +181,7 @@ class GameListView(ListView):
 # Retrieves a single Game object from the database based on the provided URL parameter (usually game's primary key)
 # and sends it to the template specified in 'template_name'
 # The context variable 'game' is used to access the game object in the template
-class GameDetailView(DetailView):
+class GameDetailView(LoginRequiredMixin,DetailView):
     # Display details of the game
     model = Game
     template_name = "game_detail.html"
@@ -161,7 +192,7 @@ class GameDetailView(DetailView):
 # When the form is submitted and valid, the new game is saved to the database
 # The user is then redirected to the game's details page using the URL named 'game_detail' with the game's primary key as a parameter
     model = Game
-class GameCreateView(CreateView):
+class GameCreateView(LoginRequiredMixin,CreateView):
     # Create a new game
     model = Game
     form_class = GameForm
@@ -175,7 +206,7 @@ class GameCreateView(CreateView):
 # Uses the GameForm form to display the form for updating an existing game
 # When the form is submitted and valid, the updated game is saved to the database
 # The user is then redirected to the game's details page using the URL named 'game_detail' with the game's primary key as a parameter
-class GameUpdateView(UpdateView):
+class GameUpdateView(LoginRequiredMixin,UpdateView):
     # Update an existing game
     model = Game
     form_class = GameForm
@@ -202,19 +233,19 @@ def game_delete(request, pk):
 
 
 # Views for LearningResource model
-class LearningResourceListView(ListView):
+class LearningResourceListView(LoginRequiredMixin,ListView):
     # Display a list of learning resources on the resources page
     model = LearningResource
     template_name = "learning_resource_list.html"
     context_object_name = "learning_resources"
 
-class LearningResourceDetailView(DetailView):
+class LearningResourceDetailView(LoginRequiredMixin,DetailView):
     # Display details of a learning resource
     model = LearningResource
     template_name = "learning_resource_detail.html"
     context_object_name = "learning_resource"
 
-class LearningResourceCreateView(CreateView):
+class LearningResourceCreateView(LoginRequiredMixin,CreateView):
     # Create a new learning resource
     model = LearningResource
     form_class = LearningResourceForm
@@ -224,7 +255,7 @@ class LearningResourceCreateView(CreateView):
         learning_resource = form.save()
         return redirect("learning_resource_detail", pk=learning_resource.pk)
 
-class LearningResourceUpdateView(UpdateView):
+class LearningResourceUpdateView(LoginRequiredMixin,UpdateView):
     # Update an existing learning resource
     model = LearningResource
     form_class = LearningResourceForm
@@ -248,7 +279,7 @@ def learning_resource_delete(request, pk):
 
 
 # Views for Progress model (similar structure as Game model)
-class ProgressListView(ListView):
+class ProgressListView(LoginRequiredMixin,ListView):
     # Display a list of Progress on the progress page
     model = Progress
     template_name = "progress_list.html"
@@ -261,13 +292,13 @@ class ProgressListView(ListView):
             progress.username = user.Username
         return queryset
 
-class ProgressDetailView(DetailView):
+class ProgressDetailView(LoginRequiredMixin,DetailView):
     # Display details of a progress record
     model = Progress
     template_name = "progress_detail.html"
     context_object_name = "progress"
 
-class ProgressCreateView(CreateView):
+class ProgressCreateView(LoginRequiredMixin,CreateView):
     # Create a new progress record
     model = Progress
     form_class = ProgressForm
@@ -277,7 +308,7 @@ class ProgressCreateView(CreateView):
         progress = form.save()
         return redirect("progress_detail", pk=progress.pk)
 
-class ProgressUpdateView(UpdateView):
+class ProgressUpdateView(LoginRequiredMixin,UpdateView):
     # Update an existing progress record
     model = Progress
     form_class = ProgressForm
@@ -297,7 +328,7 @@ def progress_delete(request, pk):
 
 
 # Views for PerformanceReport model
-class PerformanceReportListView(ListView):
+class PerformanceReportListView(LoginRequiredMixin,ListView):
     # Display a list of performance report records
     model = PerformanceReport
     template_name = "performance_report_list.html"
@@ -310,13 +341,13 @@ class PerformanceReportListView(ListView):
             report.username = user.Username
         return queryset
 
-class PerformanceReportDetailView(DetailView):
+class PerformanceReportDetailView(LoginRequiredMixin,DetailView):
     # Display details of a performance report
     model = PerformanceReport
     template_name = "performance_report_detail.html"
     context_object_name = "report"
 
-class PerformanceReportCreateView(CreateView):
+class PerformanceReportCreateView(LoginRequiredMixin,CreateView):
     # Create a new performance report
     model = PerformanceReport
     form_class = PerformanceReportForm
@@ -326,7 +357,7 @@ class PerformanceReportCreateView(CreateView):
         report = form.save()
         return redirect("performance_report_detail", pk=report.pk)
 
-class PerformanceReportUpdateView(UpdateView):
+class PerformanceReportUpdateView(LoginRequiredMixin,UpdateView):
     # Update an existing performance report
     model = PerformanceReport
     form_class = PerformanceReportForm

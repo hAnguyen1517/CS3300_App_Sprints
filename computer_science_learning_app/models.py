@@ -78,7 +78,7 @@ class Usersys(AbstractBaseUser):
         ("teacher", "Teacher"),
     ]
     Role = models.CharField(max_length=20, choices=Role_choices, default='student')
-    
+    is_staff = models.BooleanField(default=False)
     objects = UsersysManager()
 
     USERNAME_FIELD = 'Username'
@@ -92,7 +92,10 @@ class Usersys(AbstractBaseUser):
 
     def get_short_name(self):
         return self.Username
-    
+    def has_module_perms(self, app_label):     
+        return True
+    def has_perm(self, perm, obj=None):
+        return True
 # Defines a Django model class named Game.
 # This model inherits properties and behaviors from Django's models.Model,
 # allows it to define fields and perform database operations.

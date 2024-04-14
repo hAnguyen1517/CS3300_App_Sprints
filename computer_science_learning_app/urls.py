@@ -11,7 +11,8 @@ urlpatterns = [
     # path('login/', views.login_view, name='login'),
     path('accounts', include('django.contrib.auth.urls')),
     path('accounts/register', views.registerPage, name = 'register_page'),
-    # path('accounts/login', views.loginPage, name = 'login_page'),
+    path('accounts/login', views.loginPage, name = 'login_page'),
+    path('accounts/logout', views.loginPage, name = 'logout_page'),
 
     # Users URLs
     path('users/', UsersysListView.as_view(), name='usersys_list'),

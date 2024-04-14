@@ -129,6 +129,8 @@ MEDIA_URL = '/images/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+AUTH_USER_MODEL = 'computer_science_learning_app.Usersys'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
