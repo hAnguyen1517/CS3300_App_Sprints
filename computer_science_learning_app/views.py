@@ -12,9 +12,10 @@ from .forms import (
 )
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib import messages
+from django.http import HttpResponseForbidden
 
 # def signup(request):
 #     if request.method == 'POST':
@@ -68,7 +69,7 @@ def registerPage(request):
             auth_user.set_password(password)
             auth_user.save()
 
-            return redirect('index')  
+            return redirect('login')  
     else:
         form = SignupForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -84,7 +85,9 @@ def loginPage(request):
             print(username)
             print(password)
             print(user)
+            
             if user is not None:
+                messages.success(request, "Welcome.{uername}")
                 login(request, user)
                 # return redirect('index')  
     else:
@@ -93,9 +96,10 @@ def loginPage(request):
     return render(request, 'registration/login.html', {'form': form})
 
 def logoutPage(request):   
-    logout(request)
-    messages.success(request, "You have been logged out successfully.")
-    return redirect('login')  # Redirect to your login page URL name
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, "You have been logged out successfully.")
+    return redirect('login')
 
 class IndexView(LoginRequiredMixin,ListView):
     # Display a list of games on the index page
@@ -109,9 +113,17 @@ class IndexView(LoginRequiredMixin,ListView):
 # The context variable 'users' is used to access the list of users in the template
 class UsersysListView(LoginRequiredMixin, ListView):
     template_name = "usersys_list.html"
-    queryset = Usersys.objects.all()
     context_object_name = "users"
 
+    def dispatch(self, request, *args, **kwargs):
+        # Check if the user is logged in and has the role of "teacher"
+        if not request.user.is_authenticated or request.user.Role != 'teacher':
+            return HttpResponseForbidden("You are not allowed to access this page.")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        # Return the queryset of all users
+        return Usersys.objects.all()
 # DetailView for displaying detailed information about each user
 # Retrieves a single Usersys object from the database based on the provided URL parameter (usually user's primary key)
 # and sends it to the template specified in 'template_name'
@@ -328,11 +340,17 @@ def progress_delete(request, pk):
 
 
 # Views for PerformanceReport model
-class PerformanceReportListView(LoginRequiredMixin,ListView):
+class PerformanceReportListView(LoginRequiredMixin, ListView):
     # Display a list of performance report records
     model = PerformanceReport
     template_name = "performance_report_list.html"
     context_object_name = "reports"
+
+    def dispatch(self, request, *args, **kwargs):
+        # Check if the user is logged in and has the role of "teacher"
+        if not request.user.is_authenticated or request.user.Role != 'teacher':
+            return HttpResponseForbidden("You are not allowed to access this page.")
+        return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -340,7 +358,6 @@ class PerformanceReportListView(LoginRequiredMixin,ListView):
             user = Usersys.objects.get(pk=report.UserID_id)
             report.username = user.Username
         return queryset
-
 class PerformanceReportDetailView(LoginRequiredMixin,DetailView):
     # Display details of a performance report
     model = PerformanceReport

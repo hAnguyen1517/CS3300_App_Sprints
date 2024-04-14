@@ -2,23 +2,24 @@
 {% extends 'base_template.html' %}
 
 {% block content %}
-
+<div class="card p-2">
   <!-- doesn't work correctly - do not want to do all messages-->
+  <h2>Login</h2>
   {% for message in messages %}
-    <p>{{message}}</p>
+  <p>{{message}}</p>
   {% endfor %}
 
   {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+  <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
 
   {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
+  {% if user.is_authenticated %}
+  <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+  {% else %}
+  <p>Please login to see this page.</p>
+  {% endif %}
   {% endif %}
 
   <form method="post" action="{% url 'login' %}">
@@ -33,12 +34,12 @@
         <td>{{ form.password }}</td>
       </tr>
     </table>
-    <input type="submit" value="login">
+    <input type="submit" class="btn btn-primary" value="login">
     <input type="hidden" name="next" value="{{ next }}">
   </form>
 
   {# Assumes you setup the password_reset view in your URLconf #}
   <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
   <p><a href="{% url 'register_page' %}">Register</a></p>
-
+</div>
 {% endblock %}

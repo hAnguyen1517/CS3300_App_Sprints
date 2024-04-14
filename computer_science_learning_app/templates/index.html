@@ -9,6 +9,9 @@
 <!-- Page Content -->
 <div class="container mt-5">
   <h1 class="mb-4">Available Games</h1>
+  {% for message in messages %}
+  <p>{{message}}</p>
+  {% endfor %}
   <div class="row">
     {% for game in games %}
     <div class="col-md-4">

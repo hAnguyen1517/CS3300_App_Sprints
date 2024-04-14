@@ -120,11 +120,14 @@
                     <!-- Navbar LIST aligned to the right on larger screens -->
                     <ul
                         class="navbar-nav ms-auto">
-                        <!-- Individual navbar item -->
-                        <li
-                            class="nav-item">
-                            <!-- Link to the home page -->
-                            <a class="nav-link" href="/">Home</a>
+                       
+                        
+                        {% if user.is_authenticated %}
+                         <!-- Individual navbar item -->
+                         <li
+                         class="nav-item">
+                         <!-- Link to the home page -->
+                         <a class="nav-link" href="/">Home</a>
                         </li>
                         <!-- Individual navbar item -->
                         <li
@@ -153,11 +156,17 @@
                             <!-- Link to the performance report list page, URL generated using Django template tag -->
                             <a class="nav-link" href="{% url 'performance_report_list' %}">Performance Report</a>
                         </li>
-                        <li
-                            class="nav-item">
-                            <!-- Link to the login page, URL generated using Django template tag -->
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout_page' %}">Logout</a>
                         </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login_page' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register_page' %}">Register</a>
+                        </li>
+                        {% endif %}
 
                     </ul>
                 </div>
