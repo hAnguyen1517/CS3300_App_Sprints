@@ -35,11 +35,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 #         # passing the 'UserID' of the current object as an argument
 #         return reverse("user-detail", args=[str(self.UserID)])
 
+# Class function for creating a normal user and super user.
 class UsersysManager(BaseUserManager):
+    #Creates and saves a User with the given username, email, password, and role.
     def create_user(self, username, email, password=None, role='student'):
-        """
-        Creates and saves a User with the given username, email, password, and role.
-        """
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -53,10 +52,8 @@ class UsersysManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    #Creates and saves a superuser with the given username, email, password, and role.
     def create_superuser(self, username, email, password=None, role='admin'):
-        """
-        Creates and saves a superuser with the given username, email, password, and role.
-        """
         user = self.create_user(
             email=email,
             username=username,
@@ -68,6 +65,7 @@ class UsersysManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+# Class function for extending the abstract base user for login, and sign up
 class Usersys(AbstractBaseUser):
     UserID = models.AutoField(primary_key=True)
     Username = models.CharField(max_length=100, unique=True)

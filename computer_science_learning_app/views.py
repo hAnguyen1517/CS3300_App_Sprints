@@ -50,6 +50,7 @@ from django.http import HttpResponseForbidden
 #         form = LoginForm()
 #     return render(request, 'login.html', {'form': form})
 
+# Register function allows users to sign up
 def registerPage(request):
     form = SignupForm()
 
@@ -74,6 +75,7 @@ def registerPage(request):
         form = SignupForm()
     return render(request, 'registration/register.html', {'form': form})
 
+# Login function allows users to login after signed up
 def loginPage(request):
     form = LoginForm()
     if request.method == 'POST':
@@ -95,6 +97,7 @@ def loginPage(request):
 
     return render(request, 'registration/login.html', {'form': form})
 
+# Logout function allows users to logout after logged in
 def logoutPage(request):   
     if request.user.is_authenticated:
         logout(request)
@@ -203,7 +206,6 @@ class GameDetailView(LoginRequiredMixin,DetailView):
 # Eses the GameForm form to display the form for creating a new game
 # When the form is submitted and valid, the new game is saved to the database
 # The user is then redirected to the game's details page using the URL named 'game_detail' with the game's primary key as a parameter
-    model = Game
 class GameCreateView(LoginRequiredMixin,CreateView):
     # Create a new game
     model = Game
