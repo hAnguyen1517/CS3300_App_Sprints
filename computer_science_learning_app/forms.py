@@ -22,7 +22,7 @@ class GameForm(forms.ModelForm):
          # Specify the model to use for the form
         model = Game
         # Specify the fields to include in the form
-        fields = ["Title", "Description", "Category", "Difficulty_Level"]
+        fields = ["Title", "Description", "Category", "Difficulty_Level","Imageicon"]
         
 
 # Form for viewing/ creating/ updating/ deleting a Usersys instance

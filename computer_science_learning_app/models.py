@@ -108,6 +108,8 @@ class Game(models.Model):
     Category = models.CharField(max_length=50)
     # Difficulty Level field
     Difficulty_Level = models.CharField(max_length=20)
+    # image field added
+    Imageicon = models.ImageField(upload_to='static/game_images/', null=True, blank=True)
 
     def __str__(self):
         return self.Title

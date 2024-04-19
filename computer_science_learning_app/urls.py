@@ -13,7 +13,7 @@ urlpatterns = [
     path('accounts/register', views.registerPage, name = 'register_page'),
     path('accounts/login', views.loginPage, name = 'login_page'),
     path('accounts/logout', views.logoutPage, name = 'logout_page'),
-
+    path('accounts/profile/', IndexView.as_view(), name='index'),
     # Users URLs
     path('users/', UsersysListView.as_view(), name='usersys_list'),
     path('users/<int:pk>/', UsersysDetailView.as_view(), name='usersys_detail'),

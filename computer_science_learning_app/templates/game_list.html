@@ -17,7 +17,8 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <!-- <img src="{% static 'images/games.jpg' %}"> -->
-                <img src="{% static 'images/games.jpg' %}" class="card-img-top" alt="{{ game.Title }}" />
+                <img src="{% if game.Imageicon %}{{ game.Imageicon.url }}{% else %}{% static 'images/games.jpg' %}{% endif %}"
+                class="card-img-top" alt="{{ game.Title }}" />
                 <div class="card-body">
                     <h5 class="card-title">{{ game.Title }}</h5>
                     <p class="card-text">{{ game.Description }}</p>

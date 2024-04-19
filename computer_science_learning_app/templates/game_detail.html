@@ -3,6 +3,8 @@
 {% block title %}Game Detail{% endblock %}
 
 {% block content %}
+
+{% load static %}
 <!-- Page Content -->
 <div class="container mt-5">
     <div class="row">
@@ -13,6 +15,13 @@
                 <hr>
                 <p><strong>Category:</strong> <span class="badge bg-info">{{ game.Category }}</span></p>
                 <p><strong>Difficulty Level:</strong> <span class="badge bg-warning">{{ game.Difficulty_Level }}</span>
+                    {% if game.Imageicon %}
+                    <img src="{{ game.Imageicon.url }}" class="form-control" alt="{{ game.Title }}" />
+                    {% else %}
+                    <!-- Provide a fallback image if Imageicon is not available -->
+                    <img src="{% static 'images/games.jpg' %}" class="form-control" alt="{{ game.Title }}" />
+                    {% endif %}
+
                 </p>
                 <hr>
                 <div class="d-flex justify-content-between">

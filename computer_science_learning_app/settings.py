@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 
 from pathlib import Path
+from computer_science_learning_app.middleware import BlockMaliciousIPMiddleware
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,7 +50,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'computer_science_learning_app.middleware.BlockMaliciousIPMiddleware',
 ]
+
 
 ROOT_URLCONF = 'computer_science_learning_app.urls'
 
@@ -125,7 +128,7 @@ os.path.join(BASE_DIR, 'static')
 ]
 
 
-MEDIA_URL = '/images/'
+MEDIA_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -134,7 +137,7 @@ AUTH_USER_MODEL = 'computer_science_learning_app.Usersys'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL='/'
+#LOGIN_REDIRECT_URL='/'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

@@ -87,11 +87,12 @@ def loginPage(request):
             print(username)
             print(password)
             print(user)
-            
             if user is not None:
-                messages.success(request, "Welcome.{uername}")
+                messages.success(request, f"Welcome, {username}")  
                 login(request, user)
-                # return redirect('index')  
+                return redirect('index')
+            else:
+                messages.error(request, "Invalid username or password")                
     else:
         form = LoginForm()
 

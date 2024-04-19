@@ -107,7 +107,7 @@
             <div
                 class="container">
                 <!-- Branding link for the application -->
-                <a class="navbar-brand" >Computer Science Learning Application</a>
+                <a class="navbar-brand">Computer Science Learning Application</a>
                 <!-- Button for toggling navbar collapse on smaller screens -->
                 <button
                     class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,13 +157,16 @@
                             <a class="nav-link" href="{% url 'performance_report_list' %}">Performance Report</a>
                         </li>
                         <li class="nav-item">
+                             <!-- Link to logout-->
                             <a class="nav-link" href="{% url 'logout_page' %}">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-item">
+                             <!-- Link to login -->
                             <a class="nav-link" href="{% url 'login_page' %}">Login</a>
                         </li>
                         <li class="nav-item">
+                             <!-- Link to register -->
                             <a class="nav-link" href="{% url 'register_page' %}">Register</a>
                         </li>
                         {% endif %}
