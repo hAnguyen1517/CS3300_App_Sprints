@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'computer_science_learning_app.middleware.BlockMaliciousIPMiddleware',
 ]
 
+MALICIOUS_IPS = ['10.10.10.10', '20.20.20.20', '192.168.0.102']
 
 ROOT_URLCONF = 'computer_science_learning_app.urls'
 
