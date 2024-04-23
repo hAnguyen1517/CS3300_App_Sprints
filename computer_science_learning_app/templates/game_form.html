@@ -9,6 +9,7 @@
         <div class="col-md-8">
             <div class="card p-4">
                 <h2 class="mb-4">Game Form</h2>
+                <!-- Beginning of the form to create the game form page -->
                 <form method="post" class="form-control" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}

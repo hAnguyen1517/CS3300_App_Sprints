@@ -1,9 +1,9 @@
 {% extends 'base_template.html' %}
-
+<!-- Beginning of the block content  -->
 {% block content %}
 <div class="card p-2">
 <h2>Registration</h2>
-
+<!-- Beginning of the form to the registration page -->
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
