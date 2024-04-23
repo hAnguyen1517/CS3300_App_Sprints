@@ -17,7 +17,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = webdriver.Chrome()
+        cls.selenium = webdriver.Chrome() # Test6 with Chrome browswer
         cls.selenium.implicitly_wait(10)
         cls.selenium.maximize_window()
 
@@ -32,7 +32,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         # Log in with test user credentials
         username_input = self.selenium.find_element(By.NAME,"username")
-        username_input.send_keys("kenedycert")
+        username_input.send_keys("hanhCS")
         password_input = self.selenium.find_element(By.NAME,"password")
         password_input.send_keys("locked12")
         password_input.submit()
