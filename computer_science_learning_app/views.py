@@ -75,34 +75,48 @@ def registerPage(request):
         form = SignupForm()
     return render(request, 'registration/register.html', {'form': form})
 
-# Login function allows users to login after signed up
+# Login function allows users to login after signing up
 def loginPage(request):
+    # Call LoginForm() from forms.py so user can enter their login credentials
     form = LoginForm()
+    # Check if the request method is POST, indicating that the login form has been submitted
     if request.method == 'POST':
         form = LoginForm(request.POST)
+        # Validaten user's credentials and authenticated
         if form.is_valid():
+            # Extract username and password from the form
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            # Authenticat the user using django's built-in authentication system
             user = authenticate(request, Username=username, password=password)
             print(username)
             print(password)
             print(user)
+            # If user exists and the credentials are valid, log the user in and redirect to the homepage
             if user is not None:
                 messages.success(request, f"Welcome, {username}")  
                 login(request, user)
                 return redirect('index')
+            # If user does not exist or credentials are invalid, display an error message
+            # and keep the user on the login form until they enter the correct credentials
             else:
-                messages.error(request, "Invalid username or password")                
+                messages.error(request, "Invalid username or password")    
+    # If the request method is not POST, render the login form to allow the user to enter the credentials            
     else:
         form = LoginForm()
-
+    # Render the login form template with the form object
     return render(request, 'registration/login.html', {'form': form})
 
 # Logout function allows users to logout after logged in
 def logoutPage(request):   
+    # Check if the user is authenticated
     if request.user.is_authenticated:
+        # Log user out using django's built-in logout()
         logout(request)
-        messages.success(request, "You have been logged out successfully.")
+        # Display a success message informing the user that they have been loggedout
+        # and prompting them to enter user's credentials to login again if they want to re-login
+        messages.success(request, "You have been logged out successfully. Enter credentials below to ogin again!")
+        #Redirect to the login page after successful logout
     return redirect('login')
 
 class IndexView(LoginRequiredMixin,ListView):
