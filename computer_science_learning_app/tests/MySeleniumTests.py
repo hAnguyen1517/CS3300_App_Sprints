@@ -30,9 +30,9 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         # Log in with test user credentials
         username_input = self.selenium.find_element(By.NAME, "username")
-        username_input.send_keys("brian")
+        username_input.send_keys("hanh")
         password_input = self.selenium.find_element(By.NAME, "password")
-        password_input.send_keys("brian")
+        password_input.send_keys("hanh")
         password_input.submit()
 
         # Verify that we are redirected to the index page after login
