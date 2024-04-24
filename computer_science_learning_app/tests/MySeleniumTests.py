@@ -1,5 +1,6 @@
 import unittest
 from selenium import webdriver
+from selenium.webdriver.common.by import By 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from computer_science_learning_app.models import (
@@ -10,14 +11,11 @@ from computer_science_learning_app.models import (
     PerformanceReport,
 )
 
-# from selenium.webdriver.chrome.webdriver import WebDriver
-
-
 class MySeleniumTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = webdriver.Chrome() # Test6 with Chrome browswer
+        cls.selenium = webdriver.Chrome()
         cls.selenium.implicitly_wait(10)
         cls.selenium.maximize_window()
 
@@ -31,44 +29,44 @@ class MySeleniumTests(StaticLiveServerTestCase):
         self.selenium.get(self.live_server_url + reverse("login_page"))
 
         # Log in with test user credentials
-        username_input = self.selenium.find_element(By.NAME,"username")
-        username_input.send_keys("hanhCS")
-        password_input = self.selenium.find_element(By.NAME,"password")
-        password_input.send_keys("locked12")
+        username_input = self.selenium.find_element(By.NAME, "username")
+        username_input.send_keys("brian")
+        password_input = self.selenium.find_element(By.NAME, "password")
+        password_input.send_keys("brian")
         password_input.submit()
 
         # Verify that we are redirected to the index page after login
-        self.assertIn("Welcome", self.selenium.title)
+        self.assertIn("Login", self.selenium.title)
 
-        # Now, navigate to the Usersys list page
-        self.selenium.get(self.live_server_url + reverse("usersys_list"))
+        # Now, navigate to the Home page
+        self.selenium.get(self.live_server_url + reverse("index"))
 
         # Check that we are on the Usersys list page
-        self.assertIn("Users List", self.selenium.title)
+        self.assertIn("Homepage", self.selenium.title)
 
         # Open the registration page
-        self.selenium.get(self.live_server_url + reverse("registration_page"))
+        self.selenium.get(self.live_server_url + reverse("register_page"))
 
         # Fill in the registration form
-        username_input = self.selenium.find_element(By.NAME,"username")
+        username_input = self.selenium.find_element(By.NAME, "username")
         username_input.send_keys("new_user")
-        email_input = self.selenium.find_element(By.NAME,"email")
+        email_input = self.selenium.find_element(By.NAME, "email")
         email_input.send_keys("new_user@example.com")
-        password_input = self.selenium.find_element(By.NAME,"password")
+        password_input = self.selenium.find_element(By.NAME, "password")
         password_input.send_keys("new_password")
 
         # Verify that we are redirected to the login page after registration
         self.assertIn("Login", self.selenium.title)
 
         # Now try to login with the newly registered user
-        username_input = self.selenium.find_element(By.NAME,"username")
+        username_input = self.selenium.find_element(By.NAME, "username")
         username_input.send_keys("new_user")
-        password_input = self.selenium.find_element(By.NAME,"password")
+        password_input = self.selenium.find_element(By.NAME, "password")
         password_input.send_keys("new_password")
         password_input.submit()
 
         # Verify that we are redirected to the index page after login
-        self.assertIn("Welcome", self.selenium.title)
+        self.assertIn("Login", self.selenium.title)
 
     def test_game_details_view(self):
         # Create a game object
@@ -116,6 +114,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         user = Usersys.objects.create_user(
             username="test_user",
             email="test_user@example.com",
+            role="teacher",
             password="test_password",
         )
 
@@ -133,15 +132,12 @@ class MySeleniumTests(StaticLiveServerTestCase):
             self.live_server_url + reverse("learning_resource_detail", args=[resource.pk])
         )
 
-        # Simulate user completing the learning resource
-        # (You may need to fill in appropriate form fields or click buttons depending on your application's UI)
-
+     
         # Check that progress is correctly tracked for the user
         progress = Progress.objects.filter(UserID=user, ResourceID=resource).first()
         self.assertIsNotNone(progress)
         self.assertEqual(progress.CompletionStatus, "Completed")
-        # Add more assertions as needed to check progress details
-
+     
 
 if __name__ == "__main__":
     unittest.main()
