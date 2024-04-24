@@ -11,19 +11,20 @@ from computer_science_learning_app.models import (
     PerformanceReport,
 )
 
+# class initiating the selenium tests
 class MySeleniumTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = webdriver.Chrome()
-        cls.selenium.implicitly_wait(10)
+        cls.selenium.implicitly_wait(20)
         cls.selenium.maximize_window()
 
     @classmethod
     def tearDownClass(cls):
         cls.selenium.quit()
         super().tearDownClass()
-
+    # Test 1 to check login and userlist page when successful login
     def test_login_and_access_usersys_list(self):
         # Open the login page
         self.selenium.get(self.live_server_url + reverse("login_page"))
@@ -68,6 +69,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # Verify that we are redirected to the index page after login
         self.assertIn("Login", self.selenium.title)
 
+    # Test 2 to create games and check if we are able to retrieve the game inserted
     def test_game_details_view(self):
         # Create a game object
         game = Game.objects.create(
@@ -88,6 +90,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         self.assertIn("Test", self.selenium.page_source)
         self.assertIn("Easy", self.selenium.page_source)
 
+    # Test 3 to create learning resources and check if we are able to retrieve the learning resource inserted
     def test_learning_resource_access(self):
         # Create a learning resource object
         resource = LearningResource.objects.create(
@@ -109,6 +112,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         self.assertIn("All Ages", self.selenium.page_source)
         self.assertIn("http://example.com", self.selenium.page_source)
 
+    # Test 4 to create user object and learning resource and check if we are able to retrieve them
     def test_progress_tracking(self):
         # Create a user object
         user = Usersys.objects.create_user(
