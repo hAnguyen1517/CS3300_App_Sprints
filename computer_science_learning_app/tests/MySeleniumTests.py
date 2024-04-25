@@ -17,7 +17,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = webdriver.Chrome()
-        cls.selenium.implicitly_wait(20)
+        cls.selenium.implicitly_wait(10)
         cls.selenium.maximize_window()
 
     @classmethod

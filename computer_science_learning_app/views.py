@@ -119,7 +119,7 @@ def logoutPage(request):
         #Redirect to the login page after successful logout
     return redirect('login')
 
-class IndexView(LoginRequiredMixin,ListView):
+class IndexView(ListView):
     # Display a list of games on the index page
     template_name = "index.html"
     queryset = Game.objects.all()

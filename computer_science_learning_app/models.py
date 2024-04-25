@@ -81,19 +81,19 @@ class Usersys(AbstractBaseUser):
 
     USERNAME_FIELD = 'Username'
     REQUIRED_FIELDS = ['username']
-
-    # Returns the correct attributes in the Usersys model class above
+# Returns the correct attributes in the Usersys model class above
     def __str__(self):
         return self.Username
+
     def get_full_name(self):
         return self.Username
+
     def get_short_name(self):
         return self.Username
     def has_module_perms(self, app_label):     
         return True
     def has_perm(self, perm, obj=None):
         return True
-    
 # Defines a Django model class named Game.
 # This model inherits properties and behaviors from Django's models.Model,
 # allows it to define fields and perform database operations.
