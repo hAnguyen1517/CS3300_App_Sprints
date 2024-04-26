@@ -6,12 +6,15 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
 
-# Class function for the sign upform
+# Class function for creating a form for user signup
 class SignupForm(forms.ModelForm):
+    # Adding a password field with password input widget
     password = forms.CharField(widget=forms.PasswordInput)
-
+    # Meta class to specify the model and fields for the form
     class Meta:
+        # Specifying the model to be used for the form
         model = Usersys
+        # Specifying the fields to be included in the form
         fields = ["Username", "Email", "password", "Role"]
         
 # Form for viewing/ creating/ updating/ deleting a Game instance

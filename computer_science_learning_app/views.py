@@ -115,7 +115,7 @@ def logoutPage(request):
         logout(request)
         # Display a success message informing the user that they have been loggedout
         # and prompting them to enter user's credentials to login again if they want to re-login
-        messages.success(request, "You have been logged out successfully. Enter credentials below to ogin again!")
+        messages.success(request, "You have been logged out successfully. Enter credentials below to login again!")
         #Redirect to the login page after successful logout
     return redirect('login')
 
