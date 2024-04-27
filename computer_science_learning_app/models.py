@@ -65,7 +65,7 @@ class UsersysManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-# Class function for extending the abstract base user for login, and sign up
+# Class function for extending the abstract base user for the log in and sign up
 class Usersys(AbstractBaseUser):
     UserID = models.AutoField(primary_key=True)
     Username = models.CharField(max_length=100, unique=True)
